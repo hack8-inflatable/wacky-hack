@@ -1,5 +1,7 @@
 package switcher
 
+import org.apache.camel.CamelContext
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -14,6 +16,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET
 @RestController
 @RequestMapping("/wacky")
 public class WackyController {
+
+    @Autowired
+    CamelContext camelContext;
 
 
     @RequestMapping(value="/switchOnFor", method = POST)
