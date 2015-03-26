@@ -4,7 +4,7 @@
             <level>DEBUG</level>
         </filter>
         <encoder>
-            <pattern>%d %-5p [Email Services] [%c] - %m%n</pattern>
+            <pattern>%d %-5p [WAVER] [%c] - %m%n</pattern>
         </encoder>
     </appender>
 
@@ -22,16 +22,8 @@
     <logger name="org.apache.zookeeper" level="INFO"/>
     <logger name="com.dealer.config.provider" level="INFO"/>
 
-
-    <logger name="com.dealer.email.services.resources.OutboundEmailResource" level="DEBUG"/>
-    <logger name="com.dealer.email.services.integration.EmailSender" level="DEBUG"/>
-    <logger name="com.dealer.email.services.integration.retry.UndeliverableOutboundEmailMessageRecoverer" level="DEBUG"/>
-    <logger name="com.dealer.email.services.integration.retry.EmailRetryScheduleTask" level="DEBUG"/>
-    <logger name="com.dealer.email.services.integration.retry.SchedulerHandler" level="DEBUG"/>
-
-
     <!--provide limited info for each HTTP requests-->
-    <logger name="org.springframework.web.servlet.DispatcherServlet" level="DEBUG"/>
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="INFO"/>
 
     <!--Does not work with pure spring boot (but with jersey)-->
     <!--<logger name="httpclient.wire" level="DEBUG"/>-->

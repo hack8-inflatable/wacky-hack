@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.1'
-    compile"org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-web"
 
 
     compile 'com.fasterxml.jackson.module:jackson-module-jsonSchema:2.5.1'
