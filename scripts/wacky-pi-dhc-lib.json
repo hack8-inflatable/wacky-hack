@@ -1,0 +1,131 @@
+{
+  "version": 3,
+  "nodes": [
+    {
+      "id": "41D3C53E-D00B-436F-BAB9-04BB77ED0865",
+      "lastModified": "2015-03-26T11:27:03.203-04:00",
+      "name": "wacky-pi",
+      "type": "Project"
+    },
+    {
+      "id": "41475D08-DF99-43D7-8E41-64DC7841FA00",
+      "lastModified": "2015-03-26T11:27:03.203-04:00",
+      "name": "wack",
+      "type": "Service",
+      "parentId": "41D3C53E-D00B-436F-BAB9-04BB77ED0865"
+    },
+    {
+      "id": "0BEB9A70-CB17-4080-9A4B-B5624BAA28C7",
+      "lastModified": "2015-03-26T11:24:28.573-04:00",
+      "name": "wacky switch On or Off",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "method": {
+        "requestBody": true,
+        "link": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5",
+        "name": "POST"
+      },
+      "body": {
+        "autoSetLength": true,
+        "textBody": "",
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": [
+            {
+              "enabled": true,
+              "name": "on",
+              "value": "true",
+              "type": "Text"
+            }
+          ]
+        },
+        "bodyType": "Form"
+      },
+      "headersType": "Form",
+      "type": "Request",
+      "uri": {
+        "path": "localhost:8080/wacky/switch",
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        }
+      },
+      "parentId": "41475D08-DF99-43D7-8E41-64DC7841FA00"
+    },
+    {
+      "id": "07E658CA-2D7B-4E66-AFE8-E86B19114BFF",
+      "lastModified": "2015-03-26T11:27:03.203-04:00",
+      "name": "wacky switch status ",
+      "headers": [],
+      "method": {
+        "link": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3",
+        "name": "GET"
+      },
+      "body": {
+        "autoSetLength": true,
+        "textBody": "{\n  \"headers\": {\n    \"contenttype\": \"text/html\"\n  },\n  \"recipients\": [\n    {\n      \"address\": \"nicolas.gandriau@dealer.com\"\n    }\n  ],\n  \"from\": \"nicolas.gandriau@dealer.com\",\n  \"replyTo\": \"nicolas.gandriau@dealer.com\",\n  \"subject\": \"PLEASE DELETE ME\",\n  \"body\": \"Your Digital Advisor'ßsœ∑ name is\",\n  \"attachments\": [\n    {\n      \"name\": \"foo.txt\",\n      \"contentEncoding\": \"base64\",\n      \"contentType\": \"text/plain\",\n      \"id\": \"8aab9ed10a0d02b7003508c092c7cc5f\",\n      \"content\": \"WW91ciBEaWdpdGFsIEFkdmlzb3LigJlzIG5hbWUgaXM6DQpOaWNvbGFzIEdBTkRSSUFV\"\n    }\n  ],\n  \"deliveryTime\": 0,\n  \"accountId\": \"someaccount\",\n  \"applicationName\": \"test\",\n  \"oem\": \"suburu\",\n  \"userId\": \"testuser\",\n  \"type\": \"promo\"\n}\n",
+        "bodyType": "Text"
+      },
+      "headersType": "Form",
+      "type": "Request",
+      "uri": {
+        "path": "localhost:8080/wacky/switch",
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        }
+      },
+      "parentId": "41475D08-DF99-43D7-8E41-64DC7841FA00"
+    },
+    {
+      "id": "1E936C92-1B14-430C-A299-E51586B599EB",
+      "lastModified": "2015-03-26T11:23:38.915-04:00",
+      "name": "wacky switch time ",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "method": {
+        "requestBody": true,
+        "link": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5",
+        "name": "POST"
+      },
+      "body": {
+        "autoSetLength": true,
+        "textBody": "",
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": [
+            {
+              "enabled": true,
+              "name": "time",
+              "value": "123",
+              "type": "Text"
+            }
+          ]
+        },
+        "bodyType": "Form"
+      },
+      "headersType": "Form",
+      "type": "Request",
+      "uri": {
+        "path": "localhost:8080/wacky/switchOnFor",
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        }
+      },
+      "parentId": "41475D08-DF99-43D7-8E41-64DC7841FA00"
+    }
+  ]
+}
