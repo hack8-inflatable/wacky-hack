@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.PostConstruct;
 
@@ -24,7 +25,7 @@ public class ActualHardware implements WaverStatus {
 
     @Override
     public boolean isWaverOn() {
-        return waverRelay.isLow();
+        return waverStatus;
     }
 
     protected GpioPinDigitalOutput waverRelay;
@@ -33,17 +34,20 @@ public class ActualHardware implements WaverStatus {
 
     private final GpioController gpio = GpioFactory.getInstance();
 
+    private boolean waverStatus = false;
+
     @PostConstruct
     public void initializeHardware() {
         log.info("Initializing hardware interface for raspberry pi");
         log.info(" --- relay to turn on waver should be connected to GPIO pin #15");
         log.info(" --- when it goes to the low state it will turn on the wavy thing");
-        waverRelay = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_15,  PinState.HIGH);
+        waverRelay = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03,  PinState.HIGH);
     }
 
 
     @Consume(uri="seda:hardwareWaverControl")
-    public void waver(boolean on) {
+    public synchronized void waver(boolean on) {
+        waverStatus = on;
         log.info("turning {} waver", on);
         if (on) {
             waverRelay.low();

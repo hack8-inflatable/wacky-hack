@@ -33,7 +33,8 @@ public class WackyController {
     @RequestMapping(value = "/switchOnFor", method = POST)
     @ResponseStatus(NON_AUTHORITATIVE_INFORMATION)
     public void switchOnFor(@Valid @RequestParam long time) {
-        activateWaverForDuration.sendBody(TimeUnit.SECONDS.toMillis(time))
+        if(!waverStatus.isWaverOn())
+            activateWaverForDuration.sendBody(TimeUnit.SECONDS.toMillis(time))
     }
 
     @RequestMapping(value = "/switch", method = POST)
