@@ -25,7 +25,7 @@ class CamelRoute extends RouteBuilder {
                 .setHeader("delayTime", simple('${body}'))
                 .process({it.in.body = true})
                 .to("seda:sendHardwareMessage")
-                .delay(simple('${in.header.delayTime}'))
+                .delay(simple('${in.header.delayTime}')).asyncDelayed()
                 .process({it.in.body = false})
                 .to("seda:sendHardwareMessage")
 

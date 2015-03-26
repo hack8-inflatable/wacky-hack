@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 import javax.validation.Valid
+import java.util.concurrent.TimeUnit
 
 import static org.springframework.http.HttpStatus.NON_AUTHORITATIVE_INFORMATION
 import static org.springframework.web.bind.annotation.RequestMethod.GET
@@ -32,7 +33,7 @@ public class WackyController {
     @RequestMapping(value = "/switchOnFor", method = POST)
     @ResponseStatus(NON_AUTHORITATIVE_INFORMATION)
     public void switchOnFor(@Valid @RequestParam long time) {
-        activateWaverForDuration.sendBody(time)
+        activateWaverForDuration.sendBody(TimeUnit.SECONDS.toMillis(time))
     }
 
     @RequestMapping(value = "/switch", method = POST)
