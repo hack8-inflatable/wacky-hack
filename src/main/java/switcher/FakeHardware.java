@@ -25,9 +25,19 @@ public class FakeHardware implements WaverStatus {
 
     private static final Logger log = LoggerFactory.getLogger(FakeHardware.class);
 
-    @Consume(uri = "seda:turnOnWaver")
+
+    @Consume(uri="seda:hardwareWaverControl")
+    public void waver(boolean on) {
+        log.info("turning {} waver", on);
+        if (on) {
+            turnOnWaver();
+        }else {
+            turnOffWaver();
+        }
+    }
     public void turnOnWaver() {
         if (waverStatus.compareAndSet(false, true)) {
+            log.info("turning on");
             System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n" +
                     "MMMMMMMMMMMMMMMMMMMMMMM~M7MMIZM=:MMMMMMMMMMMMMMMMMMMMMMMMMMM\n" +
                     "MMMMMMMMMMMMMMMMMMMMMMM,I7D$8OZIMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n" +
@@ -108,10 +118,10 @@ public class FakeHardware implements WaverStatus {
 
     }
 
-    @Consume(uri = "seda:turnOffWaver")
     public void turnOffWaver() {
         if (waverStatus.compareAndSet(true, false)) {
-            System.out.println("  DEFLATED! \n" +
+            log.info("turning off");
+            System.out.println(" "+
                     " \n" +
                     " .====._---->_--->...");
         }

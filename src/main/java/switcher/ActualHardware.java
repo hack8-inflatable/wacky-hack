@@ -36,21 +36,22 @@ public class ActualHardware implements WaverStatus {
     @PostConstruct
     public void initializeHardware() {
         log.info("Initializing hardware interface for raspberry pi");
-        waverRelay = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00,  PinState.HIGH);
+        log.info(" --- relay to turn on waver should be connected to GPIO pin #15");
+        log.info(" --- when it goes to the low state it will turn on the wavy thing");
+        waverRelay = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_15,  PinState.HIGH);
     }
 
 
-    @Consume(uri="seda:turnOnWaver")
-    public void turnOnWaver() {
-        log.info("turning ON waver");
-        waverRelay.low();
+    @Consume(uri="seda:hardwareWaverControl")
+    public void waver(boolean on) {
+        log.info("turning {} waver", on);
+        if (on) {
+            waverRelay.low();
+        }else {
+            waverRelay.high();
+        }
     }
 
-    @Consume(uri="seda:turnOffWaver")
-    public void turnOffWaver() {
-        log.info("turning OFF waver");
-        waverRelay.high();
-    }
 
 
 

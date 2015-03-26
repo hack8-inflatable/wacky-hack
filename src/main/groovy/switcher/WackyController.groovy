@@ -25,11 +25,8 @@ public class WackyController {
     @EndpointInject(uri = "seda:activateWaver")
     ProducerTemplate activateWaver;
 
-    @EndpointInject(uri = "seda:turnOnWaver")
-    ProducerTemplate turnOnWaver;
-
-    @EndpointInject(uri = "seda:turnOffWaver")
-    ProducerTemplate turnOffWaver;
+    @EndpointInject(uri = "seda:sendHardwareMessage")
+    ProducerTemplate sendHardwareMessage;
 
 
     @RequestMapping(value = "/switchOnFor", method = POST)
@@ -41,13 +38,7 @@ public class WackyController {
     @RequestMapping(value = "/switch", method = POST)
     @ResponseStatus(NON_AUTHORITATIVE_INFORMATION)
     public void switchOnOrOff(@Valid @RequestParam boolean on) {
-
-        if (on) {
-            turnOnWaver.sendBody(true);
-        } else {
-            turnOffWaver.sendBody(true);
-        }
-
+        sendHardwareMessage.sendBody(on);
     }
 
     @RequestMapping(value = "/switch", method = GET)

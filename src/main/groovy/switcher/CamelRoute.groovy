@@ -1,5 +1,7 @@
 package switcher
 
+import org.apache.camel.Exchange
+import org.apache.camel.Expression
 import org.apache.camel.builder.RouteBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -18,8 +20,14 @@ class CamelRoute extends RouteBuilder {
         log.info("configuring time delay route")
 
         from("seda:activateWaver")
-                .to("seda:turnOnWaver")
+                .process({it.in.body = true})
+                .to("seda:sendHardwareMessage")
                 .delay(simple('${body}'))
-                .to("seda:turnOffWaver")
+                .process({it.in.body = false})
+                .to("seda:sendHardwareMessage")
+
+        from("seda:sendHardwareMessage")
+            .throttle(1)
+            .to("seda:hardwareWaverControl")
     }
 }

@@ -27,9 +27,14 @@ repositories {
     maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.1'
     compile "org.springframework.boot:spring-boot-starter-web"
+    compile 'org.springframework.boot:spring-boot-starter-undertow'
 
 
     compile 'com.fasterxml.jackson.module:jackson-module-jsonSchema:2.5.1'
