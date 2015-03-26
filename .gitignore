@@ -1,0 +1,29 @@
+# IDE artifacts
+.settings/
+.classpath
+.project
+.idea
+*.iml
+
+# Misc. OS artifacts
+.DS_Store
+
+# That's so Maven!
+target/
+
+# Logs etc.
+logs/
+stacktrace.log
+prodDb.log
+prodDb.properties
+prodDb.script
+WebContent/WEB-INF/lib/
+
+# Metrics
+metrics/
+
+# Remote Config
+lastGoodConfigs
+
+# App-specific excludes
+email.json
