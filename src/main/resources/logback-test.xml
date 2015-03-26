@@ -1,0 +1,46 @@
+<configuration scan="true" scanPeriod="5 seconds">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>%d %-5p [Email Services] [%c] - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEV-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${APP_HOME:-./UNDEFINED_LOGS_DIR}/logs/email-services-dev.log</file>
+        <encoder>
+            <pattern>%date %-6level [%logger{10}] %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <logger name="org.springframework" level="ERROR" additivity="true"/>
+    <logger name="org.apache.zookeeper" level="INFO"/>
+    <logger name="com.dealer.config.provider" level="INFO"/>
+
+
+    <logger name="com.dealer.email.services.resources.OutboundEmailResource" level="DEBUG"/>
+    <logger name="com.dealer.email.services.integration.EmailSender" level="DEBUG"/>
+    <logger name="com.dealer.email.services.integration.retry.UndeliverableOutboundEmailMessageRecoverer" level="DEBUG"/>
+    <logger name="com.dealer.email.services.integration.retry.EmailRetryScheduleTask" level="DEBUG"/>
+    <logger name="com.dealer.email.services.integration.retry.SchedulerHandler" level="DEBUG"/>
+
+
+    <!--provide limited info for each HTTP requests-->
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="DEBUG"/>
+
+    <!--Does not work with pure spring boot (but with jersey)-->
+    <!--<logger name="httpclient.wire" level="DEBUG"/>-->
+    <!--<logger name="org.apache.commons.httpclient" level="DEBUG"/>-->
+
+
+
+    <root level="INFO">
+        <appender-ref ref="DEV-FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
