@@ -23,7 +23,7 @@ public class WackyController {
 
 
     @EndpointInject(uri = "seda:activateWaver")
-    ProducerTemplate activateWaver;
+    ProducerTemplate activateWaverForDuration;
 
     @EndpointInject(uri = "seda:sendHardwareMessage")
     ProducerTemplate sendHardwareMessage;
@@ -32,7 +32,7 @@ public class WackyController {
     @RequestMapping(value = "/switchOnFor", method = POST)
     @ResponseStatus(NON_AUTHORITATIVE_INFORMATION)
     public void switchOnFor(@Valid @RequestParam long time) {
-        activateWaver.sendBody(time)
+        activateWaverForDuration.sendBody(time)
     }
 
     @RequestMapping(value = "/switch", method = POST)
