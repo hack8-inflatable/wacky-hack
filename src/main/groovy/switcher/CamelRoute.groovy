@@ -23,9 +23,11 @@ class CamelRoute extends RouteBuilder {
 
         from("seda:activateWaver")
                 .setHeader("delayTime", simple('${body}'))
+                .process({log.info("activating waver for ${TimeUnit.MILLISECONDS.toSeconds(it.in.body)} seconds")})
                 .process({it.in.body = true})
                 .to("seda:sendHardwareMessage")
                 .delay(simple('${in.header.delayTime}')).asyncDelayed()
+                .process({log.info("de-activating waver after it was running for ${TimeUnit.MILLISECONDS.toSeconds(it.in.headers['delayTime'])} seconds")})
                 .process({it.in.body = false})
                 .to("seda:sendHardwareMessage")
 
