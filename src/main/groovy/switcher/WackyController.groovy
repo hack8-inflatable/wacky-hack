@@ -13,7 +13,7 @@ import javax.validation.Valid
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
-import static org.springframework.http.HttpStatus.NON_AUTHORITATIVE_INFORMATION
+import static org.springframework.http.HttpStatus.*
 import static org.springframework.web.bind.annotation.RequestMethod.GET
 import static org.springframework.web.bind.annotation.RequestMethod.POST
 
@@ -41,10 +41,11 @@ public class WackyController {
         log.info "waver new availabilty:$on"
         waverAvailabitityStatus.set(on)
 
-        if(!on){
+        if (!on) {
             sendHardwareMessage.sendBody(false);
         }
     }
+
 
     @RequestMapping(value = "/availabilty", method = GET)
     public boolean availabilyStatus() {
@@ -54,20 +55,20 @@ public class WackyController {
     @RequestMapping(value = "/switchOnFor", method = POST)
     @ResponseStatus(NON_AUTHORITATIVE_INFORMATION)
     public void switchOnFor(@Valid @RequestParam long time) {
-        if(!waverAvailabitityStatus.get()){
+        if (!waverAvailabitityStatus.get()) {
             log.warn "waver switchOnFor rejected because not available"
-            return
+            throw new WackyUnavailableException("wacky is not available")
         }
-        if(!waverStatus.isWaverOn())
+        if (!waverStatus.isWaverOn())
             activateWaverForDuration.sendBody(TimeUnit.SECONDS.toMillis(time))
     }
 
     @RequestMapping(value = "/switch", method = POST)
     @ResponseStatus(NON_AUTHORITATIVE_INFORMATION)
     public void switchOnOrOff(@Valid @RequestParam boolean on) {
-        if(!waverAvailabitityStatus.get()){
+        if (!waverAvailabitityStatus.get()) {
             log.warn "waver switchOnOrOff rejected because not available"
-            return
+            throw new WackyUnavailableException("wacky is not available")
         }
 
         sendHardwareMessage.sendBody(on);
@@ -79,6 +80,32 @@ public class WackyController {
     }
 
 
+    @RequestMapping(value = "/logout", method = POST)
+    @ResponseStatus(UNAUTHORIZED)
+    public boolean logout() {
+    }
+}
+
+@ResponseStatus(value = LOCKED)
+class WackyUnavailableException extends RuntimeException {
+    public WackyUnavailableException(String message) {
+        super(message);
+    }
+
+    public WackyUnavailableException() {
+    }
+
+    public WackyUnavailableException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public WackyUnavailableException(Throwable cause) {
+        super(cause);
+    }
+
+    public WackyUnavailableException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 
 
 }
