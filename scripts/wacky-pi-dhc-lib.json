@@ -3,16 +3,103 @@
   "nodes": [
     {
       "id": "41D3C53E-D00B-436F-BAB9-04BB77ED0865",
-      "lastModified": "2015-03-26T11:27:03.203-04:00",
+      "lastModified": "2015-03-27T10:11:06.364-04:00",
       "name": "wacky-pi",
       "type": "Project"
     },
     {
       "id": "41475D08-DF99-43D7-8E41-64DC7841FA00",
-      "lastModified": "2015-03-26T11:27:03.203-04:00",
+      "lastModified": "2015-03-27T10:11:06.365-04:00",
       "name": "wack",
       "type": "Service",
       "parentId": "41D3C53E-D00B-436F-BAB9-04BB77ED0865"
+    },
+    {
+      "id": "516F8C45-61C2-4FC2-A7AB-F6A15CFC27F8",
+      "lastModified": "2015-03-27T10:11:06.365-04:00",
+      "name": "wacky get availability",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "method": {
+        "link": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3",
+        "name": "GET"
+      },
+      "body": {
+        "autoSetLength": true,
+        "textBody": "",
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": [
+            {
+              "enabled": true,
+              "name": "on",
+              "value": "true",
+              "type": "Text"
+            }
+          ]
+        },
+        "bodyType": "Form"
+      },
+      "headersType": "Form",
+      "type": "Request",
+      "uri": {
+        "path": "localhost:8080/wacky/availabilty",
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        }
+      },
+      "parentId": "41475D08-DF99-43D7-8E41-64DC7841FA00"
+    },
+    {
+      "id": "6925C0E3-86E4-4BE8-A084-88B75F5432BF",
+      "lastModified": "2015-03-27T10:10:37.122-04:00",
+      "name": "wacky set availability",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded"
+        }
+      ],
+      "method": {
+        "requestBody": true,
+        "link": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5",
+        "name": "POST"
+      },
+      "body": {
+        "autoSetLength": true,
+        "textBody": "",
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": [
+            {
+              "enabled": true,
+              "name": "on",
+              "value": "false",
+              "type": "Text"
+            }
+          ]
+        },
+        "bodyType": "Form"
+      },
+      "headersType": "Form",
+      "type": "Request",
+      "uri": {
+        "path": "localhost:8080/wacky/availabilty",
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        }
+      },
+      "parentId": "41475D08-DF99-43D7-8E41-64DC7841FA00"
     },
     {
       "id": "0BEB9A70-CB17-4080-9A4B-B5624BAA28C7",
