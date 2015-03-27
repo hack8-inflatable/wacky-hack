@@ -1,16 +1,11 @@
 package switcher;
 
-import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.PinState;
-import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.io.gpio.*;
 import org.apache.camel.Consume;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.PostConstruct;
 
@@ -22,6 +17,8 @@ import javax.annotation.PostConstruct;
 @Component
 @Profile("raspberryPi")
 public class ActualHardware implements WaverStatus {
+
+    Pin activationPin = RaspiPin.GPIO_03;
 
     @Override
     public boolean isWaverOn() {
@@ -39,9 +36,9 @@ public class ActualHardware implements WaverStatus {
     @PostConstruct
     public void initializeHardware() {
         log.info("Initializing hardware interface for raspberry pi");
-        log.info(" --- relay to turn on waver should be connected to GPIO pin #15");
+        log.info(" --- relay to turn on waver should be connected to GPIO pin {}", activationPin);
         log.info(" --- when it goes to the low state it will turn on the wavy thing");
-        waverRelay = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_03,  PinState.HIGH);
+        waverRelay = gpio.provisionDigitalOutputPin(activationPin,  PinState.HIGH);
     }
 
 
